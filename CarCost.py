@@ -8,7 +8,6 @@ warnings.filterwarnings('ignore')
 
 car_df=pd.read_csv('CarPrice.csv')
 car_df.head()
-car_df.shape
 car_df.duplicated().sum()
 car_df.drop_duplicates(inplace= True)
 car_df['Brand Name']=car_df['CarName'].str.split(' ').str.slice(0,1).str.join('')
