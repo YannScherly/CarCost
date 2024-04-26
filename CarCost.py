@@ -56,13 +56,15 @@ st.header('Personal details')
 age = st.number_input('Age', min_value=16)
 typeofdriver = st.selectbox('How would you describe your driving style?',['Ecological','Normal','Aggressive'])
 typeofinsurance = st.selectbox('Which type of insurance would you subscribe?', ['Legal Minimum', 'Partially Covered', 'Fully Insured']) 
-yearsofusage = st.selectbox('For how many months are you planning on using the selected car?', ['12', '24', '36', '48'])
+monthsofusage = st.selectbox('For how many months are you planning on using the selected car?', ['12', '24', '36', '48'])
  
 st.header('')
- 
+ def predict_price(price):
+ price / monthsofusage
 # Add a button to trigger the prediction
 if st.button('Predict Price'):
     price = predict_price
     st.success(f'You can expect, on average, {price:,.0f} Swiss Francs for charges, per month, for your car.')
 LOGGER = get_logger(__name__)
+
 
