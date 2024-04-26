@@ -55,7 +55,7 @@ kmdrivenpermonth = st.number_input('Average monthly kilometers driven', min_valu
 st.header('Personal details')
 age = st.number_input('Age', min_value=16)
 typeofdriver = st.selectbox('How would you describe your driving style?',['Ecological','Normal','Aggressive'])
- 
+typeofinsurance = st.selectbox('Which type of insurance would you subscribe', ['Legal Minimum', 'Partially Covered', 'Fully Insured']) 
  
 st.header('')
  
