@@ -51,7 +51,7 @@ st.write("Infos regarding", model, "->","price:", price, "Fueltype:", fueltype, 
 
 year = st.number_input("Enter the year of the car", min_value=2005, max_value=2024)
 kmdrivenpermonth = st.number_input('Average monthly kilometers driven', min_value=0)
-petrolprice = st.number_input("Enter the actual petrol price", min_value=0.5, max_value=10)
+petrolprice = st.number_input("Enter the actual petrol price", min_value=0.5, max_value=10, value=1.5)
 st.header('Personal details')
 age = st.number_input('Age', min_value=16)
 typeofdriver = st.selectbox('How would you describe your driving style?',['Ecological','Normal','Aggressive'])
