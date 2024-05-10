@@ -1,9 +1,9 @@
 
 import streamlit as st
-from streamlit.logger import get_logger
 import pandas as pd
 import numpy as np
 import warnings
+from streamlit.logger import get_logger
 warnings.filterwarnings('ignore')
 
 car_df=pd.read_csv('CarPrice.csv')
@@ -50,18 +50,18 @@ st.write("Infos regarding", model, "->","price:", price, "Fueltype:", fueltype, 
 # Create the user interface
 
 year = st.number_input("Enter the year of the car", min_value=2005, max_value=2024)
-kmdrivenpermonth = st.number_input('Average monthly kilometers driven', min_value=0)
-petrolprice = st.number_input('Enter the actual petrol price', min_value=0.5, max_value=10, value=1.5)
+kmdrivenperyear = st.number_input('Average yearly kilometers driven', min_value=0)
+petrolprice = st.number_input('Enter the actual petrol price in frs', min_value=0.5, max_value=10, value=1.5)
 st.header('Personal details')
 age = st.number_input('Age', min_value=16)
 typeofdriver = st.selectbox('How would you describe your driving style?',['Ecological','Normal','Aggressive'])
-options_mapping = {
+options_mapping_driver = {
     'Ecological': 2,
     'Normal': 8,
     'Aggressive': 15,
 }
 typeofinsurance = st.selectbox('Which type of insurance would you subscribe?', ['Legal Minimum', 'Partially Covered', 'Fully Insured']) 
-options_mapping = {
+options_mapping_insurance = {
     'Legal minimum': 900,
     'Partially Covered': 1500,
     'Fully Covered': 2500,
@@ -69,8 +69,8 @@ options_mapping = {
 monthsofusage = st.selectbox('For how many months are you planning on using the selected car?', ['12', '24', '36', '48'])
 
 
-def predict_price(year, kmdrivenpermonth, petrolprice, typeofdriver, typeofinsurance, price):
-    return (2024 - year) * 50 + kmdrivenpermonth * 0.1 + kmdrivenpermonth * petrolprice * typeofdriver / 100 + price * 0.01 + typeofinsurance + typeofdriver * 100
+def predict_price(year, kmdrivenpermonth, petrolprice, typeofdriver, typeofinsurance, price, mpg):
+    return ((2024 - year) * 50 + kmdrivenperyear * 0.1 + kmdrivenperyear * petrolprice * (2.35/mpg)) / 100 + price * 0.01 + typeofinsurance + typeofdriver * 100
 
 
 
@@ -78,29 +78,11 @@ def predict_price(year, kmdrivenpermonth, petrolprice, typeofdriver, typeofinsur
 # Add a button to trigger the prediction
 
 if st.button('Predict Price'):
-    price = predict_price
+    price_predicted = predict_price(year, kmdrivenpermonth, petrolprice, typeofdriver, typeofinsurance, price, mpg)
     st.success(f'You can expect, on average, {price:,.0f} Swiss Francs for charges, per month, for your car.')
 
 
 
 
- # Step 1: Collect User Inputs
-st.sidebar.title("Graph Input Parameters")
-x_min = st.sidebar.number_input("Minimum X value", value=0)
-x_max = st.sidebar.number_input("Maximum X value", value=10)
-step = st.sidebar.number_input("Step size", value=0.1)
 
-# Step 2: Perform Calculations
-x_values = np.arange(x_min, x_max, step)
-y_values = np.sin(x_values)  # Example calculation (sin function)
-
-# Step 3: Plot Graph
-fig, ax = plt.subplots()
-ax.plot(x_values, y_values)
-ax.set_xlabel('X')
-ax.set_ylabel('Y')
-ax.set_title('Graph of y = sin(x)')
-
-# Step 4: Display the Graph
-st.pyplot(fig)
 LOGGER = get_logger(__name__)
