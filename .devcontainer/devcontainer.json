@@ -6,7 +6,8 @@
     "codespaces": {
       "openFiles": [
         "README.md",
-        "CarCost.py"
+        "CarCost.py",
+        "shapedata.py"
       ]
     },
     "vscode": {
