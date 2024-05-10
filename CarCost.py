@@ -74,8 +74,9 @@ def predicted_price (price_df):
 
 
 # Add a button to trigger the prediction
-st.button('Predict Price'):
-    st.write("Predicted Price:", predicted_price)
+
+if st.button('Predict Price'):
+    price = predict_price
     st.success(f'You can expect, on average, {price:,.0f} Swiss Francs for charges, per month, for your car.')
 
 
