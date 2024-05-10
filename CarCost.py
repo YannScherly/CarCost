@@ -55,6 +55,11 @@ kmdrivenpermonth = st.number_input('Average monthly kilometers driven', min_valu
 st.header('Personal details')
 age = st.number_input('Age', min_value=16)
 typeofdriver = st.selectbox('How would you describe your driving style?',['Ecological','Normal','Aggressive'])
+options_mapping = {
+    'Ecological': 1,
+    'Normal': 2,
+    'Aggressive': 3,
+}
 typeofinsurance = st.selectbox('Which type of insurance would you subscribe?', ['Legal Minimum', 'Partially Covered', 'Fully Insured']) 
 monthsofusage = st.selectbox('For how many months are you planning on using the selected car?', ['12', '24', '36', '48'])
 
@@ -69,7 +74,7 @@ def predicted_price (price_df):
 
 
 # Add a button to trigger the prediction
-if st.button('Predict Price'):
+st.button('Predict Price'):
     st.write("Predicted Price:", predicted_price)
     st.success(f'You can expect, on average, {price:,.0f} Swiss Francs for charges, per month, for your car.')
 
