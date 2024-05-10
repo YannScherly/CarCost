@@ -69,18 +69,6 @@ options_mapping_insurance = {
 monthsofusage = st.selectbox('For how many months are you planning on using the selected car?', ['12', '24', '36', '48'])
 
 
-def predict_price(year, kmdrivenpermonth, petrolprice, typeofdriver, typeofinsurance, price, mpg):
-    return ((2024 - year) * 50 + kmdrivenperyear * 0.1 + kmdrivenperyear * petrolprice * (2.35/mpg)) / 100 + price * 0.01 + typeofinsurance + typeofdriver * 100
-
-
-
-
-# Add a button to trigger the prediction
-
-if st.button('Predict Price'):
-    price_predicted = predict_price(year, kmdrivenpermonth, petrolprice, typeofdriver, typeofinsurance, price, mpg)
-    st.success(f'You can expect, on average, {price:,.0f} Swiss Francs for charges, per month, for your car.')
-
 
 
 
