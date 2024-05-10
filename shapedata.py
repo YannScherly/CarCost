@@ -7,7 +7,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 
-processed_data = process_car_data('CarPrice.csv')
+def process_car_data(csv_file):
     # Read the CSV file
     car_df = pd.read_csv('CarPrice.csv')
     
