@@ -8,7 +8,7 @@ warnings.filterwarnings('ignore')
 car_df = pd.read_csv('CarPrice.csv')
 from shapedata import process_car_data
 
-def process_car_data('CarPrice.csv'):
+def process_car_data(CarPrice):
     # Read the CSV file
     car_df = pd.read_csv('CarPrice.csv')
     
