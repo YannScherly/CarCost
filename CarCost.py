@@ -51,24 +51,26 @@ st.write("Infos regarding", model, "->","price:", price, "Fueltype:", fueltype, 
 
 year = st.number_input("Enter the year of the car", min_value=2005, max_value=2024)
 kmdrivenpermonth = st.number_input('Average monthly kilometers driven', min_value=0)
- 
+petrolprice = st.number_input("Enter the actual petrol price", min_value=0.5, max_value=10)
 st.header('Personal details')
 age = st.number_input('Age', min_value=16)
 typeofdriver = st.selectbox('How would you describe your driving style?',['Ecological','Normal','Aggressive'])
 options_mapping = {
-    'Ecological': 1,
-    'Normal': 2,
-    'Aggressive': 3,
+    'Ecological': 2,
+    'Normal': 8,
+    'Aggressive': 15,
 }
 typeofinsurance = st.selectbox('Which type of insurance would you subscribe?', ['Legal Minimum', 'Partially Covered', 'Fully Insured']) 
+options_mapping = {
+    'Legal minimum': 900,
+    'Partially Covered': 1500,
+    'Fully Covered': 2500,
+}
 monthsofusage = st.selectbox('For how many months are you planning on using the selected car?', ['12', '24', '36', '48'])
 
 
-def predicted_price (price_df):
- 
-
-
-
+def predict_price(year, kmdrivenpermonth, petrolprice, typeofdriver, typeofinsurance, price):
+    return (2024 - year) * 50 + kmdrivenpermonth * 0.1 + kmdrivenpermonth * petrolprice * typeofdriver / 100 + price * 0.01 + typeofinsurance + typeofdriver * 100
 
 
 
