@@ -65,7 +65,7 @@ def predicted_price (price_df):
 
 
 
-st.header('')
+
 
 
 # Add a button to trigger the prediction
