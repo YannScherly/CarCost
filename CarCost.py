@@ -2,27 +2,26 @@
 import streamlit as st
 from streamlit.logger import get_logger
 import pandas as pd
+import matplotlib.pyplot as plt
 import numpy as np
 import warnings
 warnings.filterwarnings('ignore')
-car_df = pd.read_csv('CarPrice.csv')
-from shapedata import process_car_data
 
-def process_car_data(CarPrice):
-    # Read the CSV file
-    car_df = pd.read_csv('CarPrice.csv')
-    
-    # Drop duplicates
-    car_df.drop_duplicates(inplace=True)
-    
-    # Extract 'Brand Name' and 'Model' from 'CarName' column
-    car_df['Brand Name'] = car_df['CarName'].str.split().str[0]
-    car_df['Model'] = car_df['CarName'].str.split().str[1]
-    
-    # Select relevant columns
-    car_df = car_df[['Brand Name', 'Model', 'Price', 'Mileage', 'Engine', 'Power', 'Seats']]
-    
-    return car_df
+car_df=pd.read_csv('CarPrice.csv')
+car_df.head()
+car_df.duplicated().sum()
+car_df.drop_duplicates(inplace= True)
+car_df['Brand Name']=car_df['CarName'].str.split(' ').str.slice(0,1).str.join('')
+car_df['Model']=car_df['CarName'].str.split('').str.slice(2,3).str.join('')
+car_df['Model name']=car_df['CarName'].str.split(' ').str.slice(2,3).str.join('')
+car_df.rename(columns={'carname':'Model name'},inplace=True)
+car_df.drop('Model name',axis=1,inplace=True)
+car_df=car_df.iloc[:,[26,2,25,3,5,21,24]]
+
+
+
+ 
+ 
 
 st.title("Prediction of Monthly Expenses for a Second Hand Car")
 st.header('Fill in the details to predict your average monthly expenses')
@@ -86,5 +85,3 @@ ax.set_title('Graph of y = sin(x)')
 # Step 4: Display the Graph
 st.pyplot(fig)
 LOGGER = get_logger(__name__)
-
-
