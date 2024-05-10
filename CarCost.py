@@ -8,11 +8,21 @@ warnings.filterwarnings('ignore')
 car_df = pd.read_csv('CarPrice.csv')
 from shapedata import process_car_data
 
-
-processed_car_df = process_car_data(car_df)
-
- 
- 
+def process_car_data('CarPrice.csv'):
+    # Read the CSV file
+    car_df = pd.read_csv('CarPrice.csv')
+    
+    # Drop duplicates
+    car_df.drop_duplicates(inplace=True)
+    
+    # Extract 'Brand Name' and 'Model' from 'CarName' column
+    car_df['Brand Name'] = car_df['CarName'].str.split().str[0]
+    car_df['Model'] = car_df['CarName'].str.split().str[1]
+    
+    # Select relevant columns
+    car_df = car_df[['Brand Name', 'Model', 'Price', 'Mileage', 'Engine', 'Power', 'Seats']]
+    
+    return car_df
 
 st.title("Prediction of Monthly Expenses for a Second Hand Car")
 st.header('Fill in the details to predict your average monthly expenses')
