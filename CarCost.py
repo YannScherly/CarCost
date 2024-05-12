@@ -81,14 +81,14 @@ monthsofusage = float(monthsofusage)
 
 def predict_price(year, kmdrivenperyear, petrolprice, typeofdriver, typeofinsurance, price, mpg, monthsofusage):
 total_cost = predict_price(year, kmdrivenperyear, petrolprice, typeofdriver, typeofinsurance, price, mpg, monthsofusage)
-(((2024 - year) * 50 + (kmdrivenperyear / 12 * monthsofusage) * 0.1 + (kmdrivenperyear / 12 * monthsofusage) * petrolprice * typeofdriver * (2.35/mpg)) / 100 + price * 0.01 + typeofdriver * 100) / 12 + typeofinsurance
+
     breakdown = {
         'Fuel Cost': (kmdrivenperyear / 12 * monthsofusage) * petrolprice * typeofdriver * (2.35/mpg) / 100 
         'Insurance Cost': typeofinsurance,
         'Usage cost': price * 0.01 + typeofdriver * 100 + (2024 - year) * 50 + (kmdrivenperyear / 12 * monthsofusage) * 0.1
         # Add more cost components as needed
     }
-    return total_cost, breakdown
+    return (((2024 - year) * 50 + (kmdrivenperyear / 12 * monthsofusage) * 0.1 + (kmdrivenperyear / 12 * monthsofusage) * petrolprice * typeofdriver * (2.35/mpg)) / 100 + price * 0.01 + typeofdriver * 100) / 12 + typeofinsurance
 
 # Add a button to trigger the prediction
 
