@@ -71,7 +71,7 @@ options_mapping_insurance = {
     'Partially Covered': 1500,
     'Fully Insured': 2500,
 }
-typeofinsurance_numeric = options_mapping_driver[typeofinsurance]
+typeofinsurance_numeric = options_mapping_insurance[typeofinsurance]
 typeofinsurance = float(typeofinsurance_numeric)
 monthsofusage = st.selectbox('For how many months are you planning on using the selected car?', ['12', '24', '36', '48'])
 monthsofusage = float(monthsofusage)
