@@ -1,8 +1,8 @@
-
 import streamlit as st
 import pandas as pd
 import numpy as np
 import warnings
+import matplotlib.pyplot as plt 
 from streamlit.logger import get_logger
 
 
@@ -81,14 +81,7 @@ monthsofusage = float(monthsofusage)
 
 def predict_price(year, kmdrivenperyear, petrolprice, typeofdriver, typeofinsurance, price, mpg, monthsofusage):
     return (((2024 - year) * 50 + (kmdrivenperyear / 12 * monthsofusage) * 0.1 + (kmdrivenperyear / 12 * monthsofusage) * petrolprice * typeofdriver * (2.35/mpg)) / 100 + price * 0.01 + typeofdriver * 100) / 12 + typeofinsurance
-
-
-# Add a button to trigger the prediction
-
-if st.button('Predict Price'):
-    price_predicted = predict_price(year, kmdrivenperyear, petrolprice, typeofdriver, typeofinsurance, price, mpg, monthsofusage)
-    st.success(f'You can expect, on average, {price_predicted:,.0f} Swiss Francs for charges, per month, for your car.')
-
+price_predicted = predict_price(year, kmdrivenperyear, petrolprice, typeofdriver, typeofinsurance, price, mpg, monthsofusage)
 total_cost = price_predicted
     breakdown = {
         'Fuel Cost': (kmdrivenperyear / 12 * monthsofusage) * petrolprice * typeofdriver * (2.35/mpg) / 100 
@@ -97,6 +90,23 @@ total_cost = price_predicted
         # Add more cost components as needed
     }
     return total_cost, breakdown
+
+# Add a button to trigger the prediction
+
+if st.button('Predict Price'):
+    price_predicted, cost_breakdown = predict_price(year, kmdrivenperyear, petrolprice, typeofdriver, typeofinsurance, price, mpg, monthsofusage)
+    st.success(f'You can expect, on average, {price_predicted:,.0f} Swiss Francs for charges, per month, for your car.')
+
+
+  # Generate a pie chart for cost breakdown
+    labels = list(cost_breakdown.keys())
+    values = list(cost_breakdown.values())
+
+    fig, ax = plt.subplots()
+    ax.pie(values, labels=labels, autopct='%1.1f%%', startangle=90)
+    ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+
+    st.pyplot(fig)
 
 
 
