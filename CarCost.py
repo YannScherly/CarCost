@@ -78,6 +78,7 @@ typeofinsurance = float(typeofinsurance_numeric)
 monthsofusage = st.selectbox('For how many months are you planning on using the selected car?', ['12', '24', '36', '48'])
 monthsofusage = float(monthsofusage)
 
+
 def predict_price(year, kmdrivenperyear, petrolprice, typeofdriver, typeofinsurance, price, mpg, monthsofusage):
     return (((2024 - year) * 50 + (kmdrivenperyear / 12 * monthsofusage) * 0.1 + (kmdrivenperyear / 12 * monthsofusage) * petrolprice * typeofdriver * (2.35/mpg)) / 100 + price * 0.01 + typeofdriver * 100) / 12 + typeofinsurance
 
@@ -88,6 +89,14 @@ if st.button('Predict Price'):
     price_predicted = predict_price(year, kmdrivenperyear, petrolprice, typeofdriver, typeofinsurance, price, mpg, monthsofusage)
     st.success(f'You can expect, on average, {price_predicted:,.0f} Swiss Francs for charges, per month, for your car.')
 
+total_cost = price_predicted
+    breakdown = {
+        'Fuel Cost': (kmdrivenperyear / 12 * monthsofusage) * petrolprice * typeofdriver * (2.35/mpg) / 100 
+        'Insurance Cost': typeofinsurance,
+        'Usage cost': price * 0.01 + typeofdriver * 100 + (2024 - year) * 50 + (kmdrivenperyear / 12 * monthsofusage) * 0.1
+        # Add more cost components as needed
+    }
+    return total_cost, breakdown
 
 
 
