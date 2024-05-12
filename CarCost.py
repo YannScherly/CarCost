@@ -77,7 +77,7 @@ monthsofusage = st.selectbox('For how many months are you planning on using the 
 monthsofusage = float(monthsofusage)
 
 def predict_price(year, kmdrivenperyear, petrolprice, typeofdriver, typeofinsurance, price, mpg, monthsofusage):
-    return ((2024 - year) * 50 + kmdrivenperyear * 0.1 + kmdrivenperyear * petrolprice * (2.35/mpg)) / 100 + price * 0.01 + typeofinsurance + typeofdriver * 100
+    return (((2024 - year) * 50 + (kmdrivenperyear / 12 * monthsofusage) * 0.1 + (kmdrivenperyear / 12 * monthsofusage) * petrolprice * typeofdriver * (2.35/mpg)) / 100 + price * 0.01 + typeofdriver * 100) / 12 + typeofinsurance
 
 
 # Add a button to trigger the prediction
