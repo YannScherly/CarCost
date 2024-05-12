@@ -1,11 +1,9 @@
+
 import streamlit as st
 import pandas as pd
 import numpy as np
 import warnings
-import matplotlib.pyplot as plt 
 from streamlit.logger import get_logger
-
-
 warnings.filterwarnings('ignore')
 
 car_df=pd.read_csv('CarPrice.csv')
@@ -57,7 +55,6 @@ kmdrivenperyear = st.number_input('Average yearly kilometers driven', min_value=
 kmdrivenperyear = float(kmdrivenperyear)
 petrolprice = st.number_input('Enter the actual petrol price in frs', min_value=0.5, max_value=10.0, value=1.5)
 petrolprice = float(petrolprice)
-
 st.header('Personal details')
 age = st.number_input('Age', min_value=16)
 typeofdriver = st.selectbox('How would you describe your driving style?',['Ecological','Normal','Aggressive'])
@@ -79,34 +76,16 @@ typeofinsurance = float(typeofinsurance_numeric)
 monthsofusage = st.selectbox('For how many months are you planning on using the selected car?', ['12', '24', '36', '48'])
 monthsofusage = float(monthsofusage)
 
-
 def predict_price(year, kmdrivenperyear, petrolprice, typeofdriver, typeofinsurance, price, mpg, monthsofusage):
-total_cost = predict_price(year, kmdrivenperyear, petrolprice, typeofdriver, typeofinsurance, price, mpg, monthsofusage)
-
-    breakdown = {
-        'Fuel Cost': (kmdrivenperyear / 12 * monthsofusage) * petrolprice * typeofdriver * (2.35/mpg) / 100 
-        'Insurance Cost': typeofinsurance,
-        'Usage cost': price * 0.01 + typeofdriver * 100 + (2024 - year) * 50 + (kmdrivenperyear / 12 * monthsofusage) * 0.1
-        # Add more cost components as needed
-    }
     return (((2024 - year) * 50 + (kmdrivenperyear / 12 * monthsofusage) * 0.1 + (kmdrivenperyear / 12 * monthsofusage) * petrolprice * typeofdriver * (2.35/mpg)) / 100 + price * 0.01 + typeofdriver * 100) / 12 + typeofinsurance
+
 
 # Add a button to trigger the prediction
 
 if st.button('Predict Price'):
-    price_predicte = predict_price(year, kmdrivenperyear, petrolprice, typeofdriver, typeofinsurance, price, mpg, monthsofusage)
+    price_predicted = predict_price(year, kmdrivenperyear, petrolprice, typeofdriver, typeofinsurance, price, mpg, monthsofusage)
     st.success(f'You can expect, on average, {price_predicted:,.0f} Swiss Francs for charges, per month, for your car.')
 
-
-  # Generate a pie chart for cost breakdown
-    labels = list(cost_breakdown.keys())
-    values = list(cost_breakdown.values())
-
-    fig, ax = plt.subplots()
-    ax.pie(values, labels=labels, autopct='%1.1f%%', startangle=90)
-    ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-
-    st.pyplot(fig)
 
 
 
