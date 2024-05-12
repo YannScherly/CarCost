@@ -93,7 +93,7 @@ total_cost = price_predicted
 # Add a button to trigger the prediction
 
 if st.button('Predict Price'):
-    price_predicted, cost_breakdown = predict_price(year, kmdrivenperyear, petrolprice, typeofdriver, typeofinsurance, price, mpg, monthsofusage)
+    price_predicte = predict_price(year, kmdrivenperyear, petrolprice, typeofdriver, typeofinsurance, price, mpg, monthsofusage)
     st.success(f'You can expect, on average, {price_predicted:,.0f} Swiss Francs for charges, per month, for your car.')
 
 
