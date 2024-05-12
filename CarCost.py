@@ -94,16 +94,6 @@ total_cost = (((2024 - year) * 50 + (kmdrivenperyear / 12 * monthsofusage) * 0.1
 breakdown = {'Fuel Cost': fuel_cost, 'Insurance Cost': insurance_cost, 'Usage cost': usage_cost}
    
 
- 
- # Generate a pie chart for cost breakdown
-    labels = list(cost_breakdown.keys())
-    values = list(cost_breakdown.values())
-
-    fig, ax = plt.subplots()
-    ax.pie(values, labels=labels, autopct='%1.1f%%', startangle=90)
-    ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-
-
 
 
 
