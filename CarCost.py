@@ -86,6 +86,24 @@ if st.button('Predict Price'):
     price_predicted = predict_price(year, kmdrivenperyear, petrolprice, typeofdriver, typeofinsurance, price, mpg, monthsofusage)
     st.success(f'You can expect, on average, {price_predicted:,.0f} Swiss Francs for charges, per month, for your car.')
 
+ 
+fuel_cost = (kmdrivenperyear / 12 * monthsofusage) * petrolprice * typeofdriver * (2.35 / mpg) / 100
+insurance_cost = typeofinsurance
+usage_cost = price * 0.01 + typeofdriver * 100 + (2024 - year) * 50 + (kmdrivenperyear / 12 * monthsofusage) * 0.1
+total_cost = (((2024 - year) * 50 + (kmdrivenperyear / 12 * monthsofusage) * 0.1 + (kmdrivenperyear / 12 * monthsofusage) * petrolprice * typeofdriver * (2.35 / mpg)) / 100 + price * 0.01 + typeofdriver * 100) / 12 + typeofinsurance
+breakdown = {'Fuel Cost': fuel_cost, 'Insurance Cost': insurance_cost, 'Usage cost': usage_cost}
+   
+
+ 
+ # Generate a pie chart for cost breakdown
+    labels = list(cost_breakdown.keys())
+    values = list(cost_breakdown.values())
+
+    fig, ax = plt.subplots()
+    ax.pie(values, labels=labels, autopct='%1.1f%%', startangle=90)
+    ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+
+
 
 
 
