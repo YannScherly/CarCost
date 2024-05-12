@@ -86,17 +86,22 @@ if st.button('Predict Price'):
     price_predicted = predict_price(year, kmdrivenperyear, petrolprice, typeofdriver, typeofinsurance, price, mpg, monthsofusage)
     st.success(f'You can expect, on average, {price_predicted:,.0f} Swiss Francs for charges, per month, for your car.')
 
-option = {
-    "xAxis": {
-        "type": "category",
-        "data": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-    },
-    "yAxis": {"type": "value"},
-    "series": [{"data": [820, 932, 901, 934, 1290, 1330, 1320], "type": "line"}],
+def render_basic_pie_chart():
+    c = (
+        Pie()
+        .add("", [list(z) for z in zip(Faker.choose(), Faker.values())])
+        .set_global_opts(title_opts=opts.TitleOpts(title="Pie-基本示例"))
+        .set_series_opts(label_opts=opts.LabelOpts(formatter="{b}: {c}"))
+    )
+    st_pyecharts(c)
+
+
+ST_PIE_DEMOS = {
+    "Pie: Basic Pie": (
+        render_basic_pie_chart,
+        "https://gallery.pyecharts.org/#/Pie/pie_base",
+    )
 }
-st_echarts(
-    options=option, height="400px",
-)
 
 
 LOGGER = get_logger(__name__)
