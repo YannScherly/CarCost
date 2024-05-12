@@ -57,6 +57,7 @@ kmdrivenperyear = st.number_input('Average yearly kilometers driven', min_value=
 kmdrivenperyear = float(kmdrivenperyear)
 petrolprice = st.number_input('Enter the actual petrol price in frs', min_value=0.5, max_value=10.0, value=1.5)
 petrolprice = float(petrolprice)
+
 st.header('Personal details')
 age = st.number_input('Age', min_value=16)
 typeofdriver = st.selectbox('How would you describe your driving style?',['Ecological','Normal','Aggressive'])
