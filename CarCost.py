@@ -4,6 +4,12 @@ import pandas as pd
 import numpy as np
 import warnings
 from streamlit.logger import get_logger
+from pyecharts import options as opts
+
+from pyecharts.charts import Pie
+from pyecharts.faker import Faker
+from streamlit_echarts import st_pyecharts
+
 warnings.filterwarnings('ignore')
 
 car_df=pd.read_csv('CarPrice.csv')
@@ -90,7 +96,7 @@ def render_basic_pie_chart():
     c = (
         Pie()
         .add("", [list(z) for z in zip(Faker.choose(), Faker.values())])
-        .set_global_opts(title_opts=opts.TitleOpts(title="Pie-基本示例"))
+        .set_global_opts(title_opts=opts.TitleOpts(title="Cost Pie"))
         .set_series_opts(label_opts=opts.LabelOpts(formatter="{b}: {c}"))
     )
     st_pyecharts(c)
