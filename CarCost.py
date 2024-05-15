@@ -82,7 +82,7 @@ def predict_price(year, kmdrivenperyear, petrolprice, typeofdriver, typeofinsura
     fuel_cost = ((kmdrivenperyear / 12 * monthsofusage) * petrolprice * typeofdriver * (2.35 / mpg)) / monthsofusage
     usage_cost = (price * 0.01 + typeofdriver * 100 + (2024 - year) * 50 +
                   (kmdrivenperyear / 12 * monthsofusage) * 0.1)/ monthsofusage
-    total_cost = (fuel_cost/10 + usage_cost + typeofinsurance)
+    total_cost = (fuel_cost/10 + usage_cost/10 + typeofinsurance)
     return total_cost
 
 
@@ -96,7 +96,7 @@ if st.button('Predict Price'):
 fuel_cost = ((kmdrivenperyear / 12 * monthsofusage) * petrolprice * typeofdriver * (2.35 / mpg)) / monthsofusage /10
 insurance_cost = typeofinsurance
 usage_cost = ((price * 0.01 + typeofdriver * 100 + (2024 - year) * 50 + (kmdrivenperyear / 12 * monthsofusage) * 0.1))\
-             / monthsofusage
+             / monthsofusage / 10
 
 cost_breakdown = {'Fuel Cost': fuel_cost, 'Insurance Cost': insurance_cost, 'Usage cost': usage_cost}
 
