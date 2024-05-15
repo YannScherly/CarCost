@@ -42,7 +42,6 @@ horsepower = filtered_df[filtered_df['CarName'] == model]['horsepower'].iloc[0]
 mpg = filtered_df[filtered_df['CarName'] == model]['highwaympg'].iloc[0]
 
         
-
 # Display infos of the selected car model
 st.write("Infos regarding", model, "->", "price:", price, "Fueltype:", fueltype, "Horsepower:", horsepower)
 
@@ -80,33 +79,33 @@ monthsofusage = float(monthsofusage)
 
 # Cost computation
 def predict_price(year, kmdrivenperyear, petrolprice, typeofdriver, typeofinsurance, price, mpg, monthsofusage):
-    return (((2024 - year) * 50 + (kmdrivenperyear / 12 * monthsofusage) * 0.1 + (kmdrivenperyear / 12 * monthsofusage)
-             * petrolprice * typeofdriver * (2.35/mpg)) / 100 + price * 0.01 + typeofdriver * 100) / 12 \
-        + typeofinsurance
+    fuel_cost = ((kmdrivenperyear / 12 * monthsofusage) * petrolprice * typeofdriver * (2.35 / mpg)) / monthsofusage
+    usage_cost = (price * 0.01 + typeofdriver * 100 + (2024 - year) * 50 +
+                  (kmdrivenperyear / 12 * monthsofusage) * 0.1)/ monthsofusage
+    total_cost = (fuel_cost / 100 + usage_cost / 100 + typeofinsurance)
+    return total_cost
+
 
 # Add a button to trigger the prediction
 
 if st.button('Predict Price'):
-    price_predicted = predict_price(year, kmdrivenperyear, petrolprice, typeofdriver,
-                                     typeofinsurance, price, mpg, monthsofusage)
-    st.success(f'You can expect, on average, {price_predicted:,.0f} Swiss Francs of charges, per month, for your car.')
+    st.success(f'You can expect, on average, {predict_price(year, kmdrivenperyear, petrolprice, typeofdriver, typeofinsurance, price, mpg, monthsofusage):,.0f} '
+               f'Swiss Francs of charges, per month, for your car.')
 
  # Sort the expenses into smaller groups.
-fuel_cost = (kmdrivenperyear / 12 * monthsofusage) * petrolprice * typeofdriver * (2.35 / mpg) / 100
+fuel_cost = ((kmdrivenperyear / 12 * monthsofusage) * petrolprice * typeofdriver * (2.35 / mpg)) / monthsofusage /100
 insurance_cost = typeofinsurance
-usage_cost = price * 0.01 + typeofdriver * 100 + (2024 - year) * 50 + (kmdrivenperyear / 12 * monthsofusage) * 0.1
-total_cost = (((2024 - year) * 50 + (kmdrivenperyear / 12 * monthsofusage) * 0.1
-               + (kmdrivenperyear / 12 * monthsofusage) * petrolprice * typeofdriver * (2.35 / mpg))
-              / 100 + price * 0.01 + typeofdriver * 100) / 12 + typeofinsurance
-cost_breakdown = {'Fuel Cost': fuel_cost, 'Insurance Cost': insurance_cost, 'Usage cost': usage_cost}
+usage_cost = ((price * 0.01 + typeofdriver * 100 + (2024 - year) * 50 + (kmdrivenperyear / 12 * monthsofusage) * 0.1))\
+             / monthsofusage /100
 
+cost_breakdown = {'Fuel Cost': fuel_cost, 'Insurance Cost': insurance_cost, 'Usage cost': usage_cost}
 
 labels = list(cost_breakdown.keys())
 values = list(cost_breakdown.values())
 # Define a custom pie chart
 def my_autopct(pct):
     total = sum(values)
-    val = int(round(pct*total/100.0))
+    val = int(round(pct*total/100))
     return f'{pct:.1f}% ({val:,.0f} CHF)'
 custom_colors = ['#F08080', '#87CEFA', '#98FB98']
 
