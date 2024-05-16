@@ -58,7 +58,7 @@ age = st.number_input('Age', min_value=16)
 typeofdriver = st.selectbox('How would you describe your driving style?', ['Ecological', 'Normal', 'Aggressive'])
 # assigning a mathematical value to the different categories
 options_mapping_driver = {
-    'Ecological': 2,
+    'Ecological': 5,
     'Normal': 8,
     'Aggressive': 15,
 }
